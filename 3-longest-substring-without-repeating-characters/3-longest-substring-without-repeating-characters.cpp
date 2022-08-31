@@ -4,19 +4,16 @@ public:
     int lengthOfLongestSubstring(string s) {
         int  n = s.size();
         int len = 0;
-        unordered_map<char, int> sp;//to store the char and the last seen index
-        int left=0,right=0;
-        while(right<n)
-        {
-            if(sp.find(s[right]) != sp.end()){
-                left = max(sp[s[right]]+1,left);
+        vector<int> sp(256,-1);
+        int start=0,end =0;
+        while(end<n){
+            if(sp[s[end]] != -1){
+                start = max(start,sp[s[end]]+1);
             }
-            sp[s[right]] = right;//to store the last seen index of char
-            len = max(len,right-left+1);
-            right++;//incrementing right
-            
+            sp[s[end]] = end;
+            len = max(len,end-start+1);
+            end++;
         }
-    
         return len;
     }
 };
